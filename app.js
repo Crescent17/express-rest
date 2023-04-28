@@ -20,24 +20,23 @@ const articleSchema = mongoose.Schema({
 })
 const Article = mongoose.model("Article", articleSchema)
 
-app.get("/articles", (req, res) => {
+app.route("/articles")
+    .get((req, res) => {
     Article.find().then(articles => {
         res.send(articles)
     })
 })
-
-app.post("/articles", (req, res) => {
+    .post((req, res) => {
     const article = new Article({
         title: req.body.title,
         content: req.body.content
     })
-    article.save().then(response => {
+    article.save().then(() => {
         res.status(201).send(article)
     }).catch(err => {
         res.status(400).send(err.errors.title.message)});
 })
-
-app.delete("/articles", (req, res) => {
+    .delete((req, res) => {
     Article.deleteMany({}).then(() => {
         res.send("Deleted!")
     }).catch(err => {

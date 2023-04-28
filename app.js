@@ -17,3 +17,4 @@ const articleSchema = mongoose.Schema({
         required: true
     }
 })
+const Article = mongoose.model("Article", articleSchema)
